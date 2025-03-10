@@ -1,0 +1,15 @@
+document.getElementById('login-telegram').addEventListener('click', () => {
+    // Открываем окно авторизации через Telegram
+    window.open('https://oauth.telegram.org/auth?bot_id=YOUR_BOT_ID&origin=http://yourdomain.com', 'auth', 'width=500,height=600');
+});
+
+// Обработка данных от Telegram
+window.addEventListener('message', (event) => {
+    if (event.origin !== 'https://oauth.telegram.org') return;
+    const data = event.data;
+    if (data.auth) {
+        // Сохраняем данные пользователя и перенаправляем на страницу пользователя
+        localStorage.setItem('user', JSON.stringify(data));
+        window.location.href = '/user.html';
+    }
+});
